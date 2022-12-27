@@ -42,7 +42,7 @@ const Navbar = () => {
                     <li>
                         <Link
                             to="/login"
-                            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-purple-400 focus:shadow-outline focus:outline-none"
+                            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
                         >
                             Login
                         </Link>
@@ -137,7 +137,7 @@ const Navbar = () => {
                                         <li>
                                             <Link
                                                 to="/login"
-                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-purple-400 focus:shadow-outline focus:outline-none"
+                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
                                             >
                                                 Login
                                             </Link>
