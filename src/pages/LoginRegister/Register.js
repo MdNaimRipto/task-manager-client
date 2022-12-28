@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom"
+import GoogleLogin from './GoogleLogin';
 
 const Register = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
@@ -65,16 +66,6 @@ const Register = () => {
                         {errors.password?.message}
                     </p>
                 }
-                <input
-                    className='block w-full text-lg text-gray-900 border border-gray-400 rounded-xl cursor-pointer my-3'
-                    type="file"
-                    name="img" />
-                {errors.img &&
-                    <p role="alert"
-                        className='text-red-500 text-center my-3 font-semibold'>
-                        {errors.img?.message}
-                    </p>
-                }
                 {
                     registerError &&
                     <p className='text-red-500 text-center my-3 font-semibold'>
@@ -93,9 +84,7 @@ const Register = () => {
             <fieldset className="border-t border-gray-400">
                 <legend className="mx-auto px-4 text-2xl">Or</legend>
             </fieldset>
-            <button className='w-full py-4 px-2 rounded-xl border border-[#6589e7] text-[#6589e7] text-xl font-semibold my-3'>
-                Google
-            </button>
+            <GoogleLogin />
         </div>
     );
 };

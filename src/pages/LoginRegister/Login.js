@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom"
+import GoogleLogin from './GoogleLogin';
 
 const Login = () => {
     const { register, formState: { errors }, handleSubmit } = useForm()
@@ -42,9 +43,7 @@ const Login = () => {
             <fieldset className="border-t border-gray-400">
                 <legend className="mx-auto px-4 text-2xl">Or</legend>
             </fieldset>
-            <button className='w-full py-4 px-2 rounded-xl border border-[#6589e7] text-[#6589e7] text-xl font-semibold my-3'>
-                Google
-            </button>
+            <GoogleLogin />
             {errors.password &&
                 <p role="alert"
                     className='text-red-500 text-center my-3 font-semibold'>

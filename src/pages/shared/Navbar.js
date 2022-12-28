@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom"
+import { AuthContext } from "../../ContextProvider/AuthProvider";
 
 const Navbar = () => {
+    const { user } = useContext(AuthContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
@@ -39,14 +41,25 @@ const Navbar = () => {
                     </li>
                 </ul>
                 <ul className="items-center hidden space-x-8 lg:flex">
-                    <li>
-                        <Link
-                            to="/login"
-                            className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
-                        >
-                            Login
-                        </Link>
-                    </li>
+                    {
+                        !user?.uid ?
+                            <li>
+                                <Link
+                                    to="/login"
+                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
+                                >
+                                    Login
+                                </Link>
+                            </li>
+                            :
+                            <li>
+                                <button
+                                    className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
+                                >
+                                    Logout
+                                </button>
+                            </li>
+                    }
                 </ul>
                 <div className="lg:hidden">
                     <button
