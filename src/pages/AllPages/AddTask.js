@@ -4,10 +4,10 @@ import banner from "../../Assets/task_banner.jpg"
 
 const AddTask = () => {
     return (
-        <div className='mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl'>
-            <div className='flex justify-between items-end w-[92%] md:w-[54%] lg:w-[32%]'>
-                <h2 className='mt-8 font-semibold text-xl md:text-3xl pl-10'>Add Task</h2>
-                <p className='text-gray-500 font-semibold'>
+        <div className='mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl mb-12'>
+            <div>
+                <h2 className='mt-8 font-semibold text-xl md:text-3xl pl-10'>Add Tasks</h2>
+                <p className='text-gray-500 font-semibold pl-10 pt-2'>
                     {format(new Date(), "PPPP")}
                 </p>
             </div>
@@ -55,12 +55,12 @@ const AddTask = () => {
                                             name="description"
                                             placeholder='Task Description' />
                                         <input
-                                            className='w-full py-4 px-2 rounded-xl border border-gray-500 my-3'
+                                            className='block w-full text-lg text-gray-900 border border-gray-400 rounded-xl cursor-pointer my-3'
                                             type="file"
                                             name="img" />
                                         <input
                                             className='w-full py-4 px-2 rounded-xl bg-[#6589e7] text-white
-                                            text-xl font-semibold my-3'
+                                            text-xl font-semibold my-3 cursor-pointer'
                                             type="submit"
                                             value="Add Task" />
                                     </form>
