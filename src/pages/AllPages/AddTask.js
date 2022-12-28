@@ -1,8 +1,102 @@
 import { format } from 'date-fns';
-import React from 'react';
+import React, { useContext } from 'react';
 import banner from "../../Assets/task_banner.jpg"
+import { AuthContext } from '../../ContextProvider/AuthProvider';
 
 const AddTask = () => {
+    const { user } = useContext(AuthContext)
+    const handleTaskSubmit = (e) => {
+        e.preventDefault()
+        const form = e.target
+        const title = form.title.value
+        const description = form.description.value
+        const img = form.img.files[0]
+        const formData = new FormData();
+        formData.append('image', img)
+        const url = 'https://api.imgbb.com/1/upload?expiration=600&key=cd143a9b2573c176586ba52f643962d2'
+
+        if (description.length && img?.name?.length) {
+            fetch(url, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(imageData => {
+                    const imgUrl = imageData.data.display_url;
+                    const task = {
+                        email: user?.email,
+                        title: title,
+                        description: description,
+                        img: imgUrl,
+                        addedTime: format(new Date(), "PPPP"),
+                        completed: false
+                    }
+                    if (imageData.success) {
+                        fetch("http://localhost:5000/tasks", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(task)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data)
+                            })
+                    }
+                })
+        }
+        else if (description.length && !img?.name?.length) {
+            const task = {
+                email: user?.email,
+                title: title,
+                description: description,
+                addedTime: format(new Date(), "PPPP"),
+                completed: false
+            }
+            fetch("http://localhost:5000/tasks", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json"
+                },
+                body: JSON.stringify(task)
+            })
+                .then(res => res.json())
+                .then(data => {
+                    console.log(data)
+                })
+        }
+        else if (!description.length && img?.name?.length) {
+            fetch(url, {
+                method: "POST",
+                body: formData
+            })
+                .then(res => res.json())
+                .then(imageData => {
+                    const imgUrl = imageData.data.display_url;
+                    const task = {
+                        email: user?.email,
+                        title: title,
+                        img: imgUrl,
+                        addedTime: format(new Date(), "PPPP"),
+                        completed: false
+                    }
+                    if (imageData.success) {
+                        fetch("http://localhost:5000/tasks", {
+                            method: "POST",
+                            headers: {
+                                "content-type": "application/json"
+                            },
+                            body: JSON.stringify(task)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                console.log(data)
+                            })
+                    }
+                })
+        }
+    }
     return (
         <div className='mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl mb-12'>
             <div>
@@ -42,7 +136,7 @@ const AddTask = () => {
                                     <h3 className="mb-4 text-2xl font-semibold sm:text-center sm:mb-6 sm:text-2xl">
                                         Please Add a Task
                                     </h3>
-                                    <form>
+                                    <form onSubmit={handleTaskSubmit}>
                                         <input
                                             className='w-full py-4 px-2 rounded-xl border border-gray-500 my-3'
                                             type="text"
