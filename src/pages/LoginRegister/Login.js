@@ -4,11 +4,16 @@ import { Link } from "react-router-dom"
 import { AuthContext } from '../../ContextProvider/AuthProvider';
 import GoogleLogin from './GoogleLogin';
 import swal from 'sweetalert';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Login = () => {
     const { userLogin } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const [loginError, setLoginError] = useState('')
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
 
     const handleLogin = (data) => {
         const email = data.email;
@@ -22,6 +27,7 @@ const Login = () => {
                     text: "Your account logged in successfully!",
                     icon: "success",
                 });
+                navigate(from, { replace: true })
             })
             .catch(err => {
                 console.error(err)
@@ -55,7 +61,7 @@ const Login = () => {
                     placeholder='Enter Password'
                     required />
                 <input
-                    className='w-full py-4 px-2 rounded-xl bg-[#6589e7] text-white text-xl font-semibold my-3'
+                    className='cursor-pointer w-full py-4 px-2 rounded-xl bg-[#6589e7] text-white text-xl font-semibold my-3'
                     type="submit"
                     value="Login" />
             </form>

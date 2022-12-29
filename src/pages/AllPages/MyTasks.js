@@ -32,7 +32,7 @@ const MyTasks = () => {
                 console.log(data)
                 swal({
                     title: "Great job!",
-                    text: "Your Task Updated Successfully!",
+                    text: "You have completed your task successfully!",
                     icon: "success",
                 });
                 refetch()
@@ -87,6 +87,7 @@ const MyTasks = () => {
                                             <VscCheckAll />
                                         </button>
                                         <Link
+                                            to={`/updateTask/${description._id}`}
                                             title="Update Task"
                                             className="btn  p-2 rounded mr-2 font-semibold hover:text-[#6589e7]">
                                             <RxUpdate />
@@ -108,7 +109,7 @@ const MyTasks = () => {
                                     </PhotoView>
 
                                 }
-                                <p className="text-sm lg:text-lg text-gray-600 font-semibold mb-3">
+                                <p className="text-sm lg:text-lg text-gray-900 font-semibold mb-3">
                                     {description.description}
                                 </p>
                                 <p className="text-sm text-gray-600 font-semibold">

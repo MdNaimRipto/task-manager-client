@@ -77,7 +77,7 @@ const CompletedTasks = () => {
                                     </PhotoView>
 
                                 }
-                                <p className="text-sm lg:text-lg text-gray-600 font-semibold mb-3">
+                                <p className="text-sm lg:text-lg text-gray-900 font-semibold mb-3">
                                     {description.description}
                                 </p>
                                 <p className="text-sm text-gray-600 font-semibold">

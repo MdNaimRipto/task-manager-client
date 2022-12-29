@@ -4,11 +4,16 @@ import { Link } from "react-router-dom"
 import { AuthContext } from '../../ContextProvider/AuthProvider';
 import GoogleLogin from './GoogleLogin';
 import swal from 'sweetalert';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const Register = () => {
     const { userRegister } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const [registerError, setRegisterError] = useState('')
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
 
     const handleRegister = (data) => {
         const email = data.email;
@@ -22,6 +27,7 @@ const Register = () => {
                     text: "Your account registered in successfully!",
                     icon: "success",
                 });
+                navigate(from, { replace: true })
             })
             .catch(err => {
                 console.error(err)

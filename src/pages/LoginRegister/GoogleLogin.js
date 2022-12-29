@@ -1,9 +1,14 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../ContextProvider/AuthProvider';
 import swal from 'sweetalert';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const GoogleLogin = () => {
     const { googleLogin } = useContext(AuthContext)
+
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state?.from?.pathname || "/"
 
     const handleGoogleLogin = () => {
         googleLogin()
@@ -15,6 +20,7 @@ const GoogleLogin = () => {
                     text: "Your account logged in successfully!",
                     icon: "success",
                 });
+                navigate(from, { replace: true })
             })
             .catch(err => {
                 console.error(err)
