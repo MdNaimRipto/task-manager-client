@@ -34,7 +34,7 @@ const AddTask = () => {
                         completed: false
                     }
                     if (imageData.success) {
-                        fetch("http://localhost:5000/tasks", {
+                        fetch("https://task-manager-server-seven.vercel.app/tasks", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"
@@ -62,7 +62,7 @@ const AddTask = () => {
                 addedTime: format(new Date(), "PPPP"),
                 completed: false
             }
-            fetch("http://localhost:5000/tasks", {
+            fetch("https://task-manager-server-seven.vercel.app/tasks", {
                 method: "POST",
                 headers: {
                     "content-type": "application/json"
@@ -96,7 +96,7 @@ const AddTask = () => {
                         completed: false
                     }
                     if (imageData.success) {
-                        fetch("http://localhost:5000/tasks", {
+                        fetch("https://task-manager-server-seven.vercel.app/tasks", {
                             method: "POST",
                             headers: {
                                 "content-type": "application/json"

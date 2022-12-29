@@ -15,14 +15,14 @@ const MyTasks = () => {
     const { data: descriptions = [], isLoading, refetch } = useQuery({
         queryKey: ['descriptions', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/tasks?email=${user?.email}`);
+            const res = await fetch(`https://task-manager-server-seven.vercel.app/tasks?email=${user?.email}`);
             const data = await res.json()
             return data
         }
     })
 
     const handleComplete = (_id) => {
-        fetch(`http://localhost:5000/tasks/${_id}`, {
+        fetch(`https://task-manager-server-seven.vercel.app/tasks/${_id}`, {
             method: "PUT",
             headers: {
                 "content-type": "application/json"
@@ -50,7 +50,7 @@ const MyTasks = () => {
         })
             .then((willDelete) => {
                 if (willDelete) {
-                    fetch(`http://localhost:5000/tasks/${_id}`, {
+                    fetch(`https://task-manager-server-seven.vercel.app/tasks/${_id}`, {
                         method: "DELETE"
                     })
                         .then(res => res.json())

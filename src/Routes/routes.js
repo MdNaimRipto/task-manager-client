@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
                 path: "/updateTask/:id",
                 element: <PrivateRoute><UpdateTask /></PrivateRoute>,
                 loader: async ({ params }) => {
-                    return fetch(`http://localhost:5000/updateTask/${params.id}`)
+                    return fetch(`https://task-manager-server-seven.vercel.app/updateTask/${params.id}`)
                 }
             }
         ]
