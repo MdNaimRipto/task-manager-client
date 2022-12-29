@@ -3,6 +3,7 @@ import { AuthContext } from '../../ContextProvider/AuthProvider';
 import { useQuery } from '@tanstack/react-query';
 import swal from 'sweetalert';
 import { RiDeleteBin6Line } from "react-icons/ri"
+import { RxUpdate } from "react-icons/rx"
 import { PhotoView } from 'react-photo-view';
 import Loading from '../shared/Loading';
 
@@ -16,6 +17,25 @@ const CompletedTasks = () => {
             return data
         }
     })
+
+    const handleNotComplete = (_id) => {
+        fetch(`http://localhost:5000/completedTasks/${_id}`, {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                swal({
+                    title: "Great job!",
+                    text: "Your task added again in my task!",
+                    icon: "success",
+                });
+                refetch()
+            })
+    }
 
     const handleDelete = (_id) => {
         swal({
@@ -60,6 +80,12 @@ const CompletedTasks = () => {
                                 <div className="flex justify-between my-4">
                                     <h1 className="text-2xl md:text-3xl font-semibold">{description.title}</h1>
                                     <div className="flex justify-center items-center text-xl">
+                                        <button
+                                            onClick={() => handleNotComplete(description._id)}
+                                            title="Complete Task"
+                                            className="btn  p-2 rounded mr-2 font-semibold hover:text-[#6589e7]">
+                                            <RxUpdate />
+                                        </button>
                                         <button
                                             onClick={() => { handleDelete(description._id) }}
                                             title="Delete Task"
