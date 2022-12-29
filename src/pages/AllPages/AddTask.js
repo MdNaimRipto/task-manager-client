@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 import React, { useContext } from 'react';
+import swal from 'sweetalert';
 import banner from "../../Assets/task_banner.jpg"
 import { AuthContext } from '../../ContextProvider/AuthProvider';
 
@@ -44,6 +45,11 @@ const AddTask = () => {
                             .then(data => {
                                 console.log(data)
                                 form.reset()
+                                swal({
+                                    title: "Great job!",
+                                    text: "Your Task Added Successfully!",
+                                    icon: "success",
+                                });
                             })
                     }
                 })
@@ -67,6 +73,11 @@ const AddTask = () => {
                 .then(data => {
                     console.log(data)
                     form.reset()
+                    swal({
+                        title: "Great job!",
+                        text: "Your Task Added Successfully!",
+                        icon: "success",
+                    });
                 })
         }
         else if (!description.length && img?.name?.length) {
@@ -96,13 +107,18 @@ const AddTask = () => {
                             .then(data => {
                                 console.log(data)
                                 form.reset()
+                                swal({
+                                    title: "Great job!",
+                                    text: "Your Task Added Successfully!",
+                                    icon: "success",
+                                });
                             })
                     }
                 })
         }
     }
     return (
-        <div className='mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl mb-12'>
+        <div className='mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl mb-12 h-screen mt-16 lg:mt-0'>
             <div>
                 <h2 className='mt-8 font-semibold text-xl md:text-3xl pl-10'>Add Tasks</h2>
                 <p className='text-gray-500 font-semibold pl-10 pt-2'>

@@ -1,43 +1,21 @@
 import React, { useContext } from 'react';
-import { Link } from "react-router-dom"
-import { RiDeleteBin6Line } from "react-icons/ri"
-import { RxUpdate } from "react-icons/rx"
-import { VscCheckAll } from "react-icons/vsc"
-import { useQuery } from '@tanstack/react-query';
 import { AuthContext } from '../../ContextProvider/AuthProvider';
-import Loading from '../shared/Loading';
-import { PhotoView } from 'react-photo-view';
+import { useQuery } from '@tanstack/react-query';
 import swal from 'sweetalert';
+import { RiDeleteBin6Line } from "react-icons/ri"
+import { PhotoView } from 'react-photo-view';
+import Loading from '../shared/Loading';
 
-const MyTasks = () => {
+const CompletedTasks = () => {
     const { user } = useContext(AuthContext)
     const { data: descriptions = [], isLoading, refetch } = useQuery({
         queryKey: ['descriptions', user?.email],
         queryFn: async () => {
-            const res = await fetch(`http://localhost:5000/tasks?email=${user?.email}`);
+            const res = await fetch(`http://localhost:5000/completedTasks?email=${user?.email}`);
             const data = await res.json()
             return data
         }
     })
-
-    const handleComplete = (_id) => {
-        fetch(`http://localhost:5000/tasks/${_id}`, {
-            method: "PUT",
-            headers: {
-                "content-type": "application/json"
-            }
-        })
-            .then(res => res.json())
-            .then(data => {
-                console.log(data)
-                swal({
-                    title: "Great job!",
-                    text: "Your Task Updated Successfully!",
-                    icon: "success",
-                });
-                refetch()
-            })
-    }
 
     const handleDelete = (_id) => {
         swal({
@@ -65,9 +43,11 @@ const MyTasks = () => {
                 }
             });
     }
+
     if (isLoading) {
         return <Loading />
     }
+
     return (
         <>
             {
@@ -80,17 +60,6 @@ const MyTasks = () => {
                                 <div className="flex justify-between my-4">
                                     <h1 className="text-2xl md:text-3xl font-semibold">{description.title}</h1>
                                     <div className="flex justify-center items-center text-xl">
-                                        <button
-                                            onClick={() => handleComplete(description._id)}
-                                            title="Complete Task"
-                                            className="btn  p-2 rounded mr-2 font-semibold hover:text-[#6589e7]">
-                                            <VscCheckAll />
-                                        </button>
-                                        <Link
-                                            title="Update Task"
-                                            className="btn  p-2 rounded mr-2 font-semibold hover:text-[#6589e7]">
-                                            <RxUpdate />
-                                        </Link>
                                         <button
                                             onClick={() => { handleDelete(description._id) }}
                                             title="Delete Task"
@@ -120,7 +89,7 @@ const MyTasks = () => {
                     :
                     <div className='flex justify-center items-center mt-16'>
                         <h2 className='text-xl md:text-3xl font-semibold'>
-                            You Haven't Added Any Tasks Yet!
+                            You Haven't Completed Any Tasks Yet!
                         </h2>
                     </div>
             }
@@ -128,4 +97,4 @@ const MyTasks = () => {
     );
 };
 
-export default MyTasks;
+export default CompletedTasks;

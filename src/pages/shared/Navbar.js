@@ -3,8 +3,13 @@ import { Link } from "react-router-dom"
 import { AuthContext } from "../../ContextProvider/AuthProvider";
 
 const Navbar = () => {
-    const { user } = useContext(AuthContext)
+    const { user, logout } = useContext(AuthContext)
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const handleLogout = () => {
+        logout()
+            .then(() => { })
+            .catch(err => console.error(err))
+    }
 
     return (
         <div className="px-4 py-7 border-b border-gray-300 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8">
@@ -54,6 +59,7 @@ const Navbar = () => {
                             :
                             <li>
                                 <button
+                                    onClick={handleLogout}
                                     className="inline-flex items-center justify-center h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
                                 >
                                     Logout
@@ -148,12 +154,21 @@ const Navbar = () => {
                                             </Link>
                                         </li>
                                         <li>
-                                            <Link
-                                                to="/login"
-                                                className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
-                                            >
-                                                Login
-                                            </Link>
+                                            {
+                                                !user?.uid ?
+                                                    <Link
+                                                        to="/login"
+                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
+                                                    >
+                                                        Login
+                                                    </Link>
+                                                    : <button
+                                                        onClick={handleLogout}
+                                                        className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide transition duration-200 rounded shadow-md bg-[#6589e7] text-white focus:shadow-outline focus:outline-none"
+                                                    >
+                                                        Logout
+                                                    </button>
+                                            }
                                         </li>
                                     </ul>
                                 </nav>
