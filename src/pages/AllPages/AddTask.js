@@ -5,6 +5,7 @@ import { AuthContext } from '../../ContextProvider/AuthProvider';
 
 const AddTask = () => {
     const { user } = useContext(AuthContext)
+
     const handleTaskSubmit = (e) => {
         e.preventDefault()
         const form = e.target
@@ -13,7 +14,7 @@ const AddTask = () => {
         const img = form.img.files[0]
         const formData = new FormData();
         formData.append('image', img)
-        const url = 'https://api.imgbb.com/1/upload?expiration=600&key=cd143a9b2573c176586ba52f643962d2'
+        const url = 'https://api.imgbb.com/1/upload?key=cd143a9b2573c176586ba52f643962d2'
 
         if (description.length && img?.name?.length) {
             fetch(url, {
@@ -42,6 +43,7 @@ const AddTask = () => {
                             .then(res => res.json())
                             .then(data => {
                                 console.log(data)
+                                form.reset()
                             })
                     }
                 })
@@ -64,6 +66,7 @@ const AddTask = () => {
                 .then(res => res.json())
                 .then(data => {
                     console.log(data)
+                    form.reset()
                 })
         }
         else if (!description.length && img?.name?.length) {
@@ -92,6 +95,7 @@ const AddTask = () => {
                             .then(res => res.json())
                             .then(data => {
                                 console.log(data)
+                                form.reset()
                             })
                     }
                 })
@@ -143,8 +147,8 @@ const AddTask = () => {
                                             name="title"
                                             placeholder='Task Title'
                                             required />
-                                        <textarea
-                                            className='w-full py-4 px-2 rounded-xl border border-gray-500 my-3'
+                                        <input
+                                            className='w-full pt-3 pb-10 px-2 rounded-xl border border-gray-500 my-3'
                                             type="text"
                                             name="description"
                                             placeholder='Task Description' />
@@ -156,7 +160,8 @@ const AddTask = () => {
                                             className='w-full py-4 px-2 rounded-xl bg-[#6589e7] text-white
                                             text-xl font-semibold my-3 cursor-pointer'
                                             type="submit"
-                                            value="Add Task" />
+                                            value="Add Task"
+                                        />
                                     </form>
                                 </div>
                             </div>
