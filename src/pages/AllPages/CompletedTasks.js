@@ -82,7 +82,7 @@ const CompletedTasks = () => {
                                     <div className="flex justify-center items-center text-xl">
                                         <button
                                             onClick={() => handleNotComplete(description._id)}
-                                            title="Complete Task"
+                                            title="Return to MyTasks"
                                             className="btn  p-2 rounded mr-2 font-semibold hover:text-[#6589e7]">
                                             <RxUpdate />
                                         </button>
