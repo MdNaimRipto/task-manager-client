@@ -8,7 +8,6 @@ import {
     signInWithEmailAndPassword,
     signInWithPopup,
     signOut,
-    updateProfile
 } from "firebase/auth"
 
 export const AuthContext = createContext()
@@ -29,10 +28,6 @@ const AuthProvider = ({ children }) => {
     const userLogin = (email, password) => {
         setLoading(true)
         return signInWithEmailAndPassword(auth, email, password)
-    }
-
-    const updateUser = (userInfo) => {
-        return updateProfile(auth.currentUser, userInfo)
     }
 
     const googleLogin = () => {
@@ -61,7 +56,6 @@ const AuthProvider = ({ children }) => {
         setUser,
         userRegister,
         userLogin,
-        updateUser,
         googleLogin,
         logout
     }

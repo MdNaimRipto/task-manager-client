@@ -1,14 +1,37 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom"
+import { AuthContext } from '../../ContextProvider/AuthProvider';
 import GoogleLogin from './GoogleLogin';
+import swal from 'sweetalert';
 
 const Register = () => {
+    const { userRegister } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const [registerError, setRegisterError] = useState('')
 
     const handleRegister = (data) => {
-
+        const email = data.email;
+        const password = data.password;
+        userRegister(email, password)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                swal({
+                    title: "Registration Successfully!",
+                    text: "Your account registered in successfully!",
+                    icon: "success",
+                });
+            })
+            .catch(err => {
+                console.error(err)
+                setRegisterError(err)
+                swal({
+                    title: "Registration Unsuccessful!",
+                    text: "Your account isn't registered in successfully!",
+                    icon: "error",
+                });
+            })
     }
     return (
         <div className="w-[96%] md:w-[50%] lg:w-[35%] mx-auto my-20 border border-gray-400 py-8 px-5 rounded-lg">

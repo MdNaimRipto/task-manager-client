@@ -1,14 +1,37 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from "react-router-dom"
+import { AuthContext } from '../../ContextProvider/AuthProvider';
 import GoogleLogin from './GoogleLogin';
+import swal from 'sweetalert';
 
 const Login = () => {
+    const { userLogin } = useContext(AuthContext)
     const { register, formState: { errors }, handleSubmit } = useForm()
     const [loginError, setLoginError] = useState('')
 
     const handleLogin = (data) => {
-
+        const email = data.email;
+        const password = data.password;
+        userLogin(email, password)
+            .then(result => {
+                const user = result.user
+                console.log(user)
+                swal({
+                    title: "Login Successfully!",
+                    text: "Your account logged in successfully!",
+                    icon: "success",
+                });
+            })
+            .catch(err => {
+                console.error(err)
+                setLoginError(err)
+                swal({
+                    title: "Login Unsuccessful!",
+                    text: "Your account isn't logged in successfully!",
+                    icon: "error",
+                });
+            })
     }
 
     return (

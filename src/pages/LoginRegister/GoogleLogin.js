@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../ContextProvider/AuthProvider';
+import swal from 'sweetalert';
 
 const GoogleLogin = () => {
     const { googleLogin } = useContext(AuthContext)
@@ -9,8 +10,20 @@ const GoogleLogin = () => {
             .then(result => {
                 const user = result.user
                 console.log(user)
+                swal({
+                    title: "Login Successfully!",
+                    text: "Your account logged in successfully!",
+                    icon: "success",
+                });
             })
-            .catch(err => console.error(err))
+            .catch(err => {
+                console.error(err)
+                swal({
+                    title: "Login Unsuccessful!",
+                    text: "Your account isn't logged in successfully!",
+                    icon: "error",
+                });
+            })
     }
     return (
         <button
